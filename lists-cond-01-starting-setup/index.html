@@ -23,9 +23,17 @@
 
       <p v-if="goals.length == 0">No goals have been added yet - please start adding some!</p>
       <ul v-else-if="goals.length > 0">
-        <li v-for="goal in goals">{{ goal }}</li>
+        <li v-for="(goal, idx) in goals" :key="goal" @click="removeGoal(idx)">
+          <p>{{ idx + '. ' + goal }}</p>
+          <input type="text" @click.stop>
+        </li>
       </ul>
-    
+      <!-- <ul>
+        <li v-for="(vals, idx) in {name: 'Roi', age: 25}">{{ idx + ': ' + vals }}</li>
+      </ul>
+      <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul> -->
     </section>
   </body>
 </html>
