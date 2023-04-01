@@ -26,16 +26,24 @@ const app = Vue.createApp({
             if (value <= 0 && this.enemyHealth) {
                 this.winner = "draw";
             } else if (value <= 0){
-                this.winner = "monster";
+                this.winner = "enemy";
             } 
         },
     },
     computed: {
         enemyHealthStyles() {
-            return 'width: ' + this.enemyHealth + '%';
+            if(this.enemyHealth < 0){
+                return {width: '0%'};
+            }
+            return {width: this.enemyHealth + '%'};
+             
         },
         playerHealthStyles() {
-            return 'width: ' + this.playerHealth + '%';
+            if(this.playerHealth < 0){
+                return {width: '0%'};
+            }
+            return {width: this.playerHealth + '%'};
+             
         },
         enableSpecialAttack(){
             return (this.currentRound % 3) !== 0 ? true : false;
@@ -49,6 +57,12 @@ const app = Vue.createApp({
         }
     },
     methods: {
+        playAgain(){
+            this.playerHealth = 100;
+            this.enemyHealth = 100;
+            this.currentRound = 0;
+            this.winner = null;
+        },
         attack() {
             this.currentRound++;
             const attackValue = getRandomValue(5, 12);

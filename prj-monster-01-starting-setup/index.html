@@ -31,7 +31,10 @@
       </section>
       <section class="container" v-if="winner">
         <h2>Game Over!</h2>
-        <h3>{{ getWinner }}</h3>
+        <h3 v-if="winner === 'enemy'">You lost!</h3>
+        <h3 v-else-if="winner === 'player'">You won!</h3>
+        <h3 v-else>Draw!</h3>
+        <button @click="playAgain">Play Again?</button>
       </section>
       <section id="controls">
         <button @click="attack">ATTACK</button>
